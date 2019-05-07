@@ -130,4 +130,9 @@ typings/
 # Ignore all local history of files
 .history
 
+# Ignore doc
+doc/*
+!doc/
+!doc/.gitkeep
+
 # End of https://www.gitignore.io/api/node,angular,visualstudiocode
