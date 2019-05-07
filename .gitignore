@@ -135,4 +135,10 @@ doc/*
 !doc/
 !doc/.gitkeep
 
+# Ignore archivos con variables de entorno
+# development.env
+production.env
+test.env
+provision.env
+
 # End of https://www.gitignore.io/api/node,angular,visualstudiocode
