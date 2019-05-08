@@ -5,7 +5,7 @@
   "author": "Sebastian Rios Sabogal",
   "license": "MIT",
   "scripts": {
-    "build": "NODE_ENV=production tsc -p tsconfig.build.json",
+    "build": "NODE_ENV=production rm -rfv dist/* && tsc -p tsconfig.build.json && touch dist/.gitkeep",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "NODE_ENV=development ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "NODE_ENV=development nodemon",

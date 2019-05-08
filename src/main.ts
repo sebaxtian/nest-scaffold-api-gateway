@@ -3,12 +3,20 @@ import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
+import { MyLogger } from './my-logger.service';
 
 async function bootstrap() {
   /**
    * CORS: https://github.com/expressjs/cors#configuration-options
    */
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    logger: false,
+  });
+  /**
+   * Logger: https://docs.nestjs.com/v5/techniques/logger
+   */
+  app.useLogger(app.get(MyLogger));
   /**
    * Security: https://docs.nestjs.com/v5/techniques/security
    */
@@ -16,7 +24,7 @@ async function bootstrap() {
   /**
    * CSRF: https://docs.nestjs.com/v5/techniques/security
    */
-  // app.use(csurf());
+  app.use(csurf());
   /**
    * To protect from brute-force attacks: https://docs.nestjs.com/v5/techniques/security
    */

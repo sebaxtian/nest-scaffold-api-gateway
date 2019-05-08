@@ -141,4 +141,14 @@ production.env
 test.env
 provision.env
 
+# Ignore logs
+logs/*
+!logs/
+!logs/.gitkeep
+
+# Ignore dist
+dist/*
+!dist/
+!dist/.gitkeep
+
 # End of https://www.gitignore.io/api/node,angular,visualstudiocode
