@@ -4,6 +4,7 @@ import * as helmet from 'helmet';
 import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
 import { MyLogger } from './my-logger.service';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   /**
@@ -24,7 +25,7 @@ async function bootstrap() {
   /**
    * CSRF: https://docs.nestjs.com/v5/techniques/security
    */
-  app.use(csurf());
+  // app.use(csurf());
   /**
    * To protect from brute-force attacks: https://docs.nestjs.com/v5/techniques/security
    */
@@ -32,6 +33,16 @@ async function bootstrap() {
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
       max: 100, // limit each IP to 100 requests per windowMs
+    }),
+  );
+  /**
+   * Validation: https://docs.nestjs.com/v5/techniques/validation
+   */
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // disableErrorMessages: true,
+      // whitelist: true,
+      // transform: true,
     }),
   );
   // Run app
