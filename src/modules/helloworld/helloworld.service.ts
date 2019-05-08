@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from './config.service';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
-export class AppService {
+export class HelloWorldService {
   private appName: string;
   private portApi: number;
 

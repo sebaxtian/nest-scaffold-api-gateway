@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
-import { MyLogger } from './my-logger.service';
+import { MyLogger } from './modules/logger/my-logger.service';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
