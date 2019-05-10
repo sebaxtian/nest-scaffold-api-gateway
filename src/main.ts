@@ -5,6 +5,7 @@ import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
 import { MyLogger } from './modules/logger/my-logger.service';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   /**
@@ -45,6 +46,18 @@ async function bootstrap() {
       // transform: true,
     }),
   );
+  /**
+   * Swagger Config: https://docs.nestjs.com/v5/recipes/swagger
+   */
+  const options = new DocumentBuilder()
+    .setTitle('NestJS Scaffold API Gateway')
+    .setDescription('Configuración de scaffold para crear API Gateway usando el Framework NestJS')
+    .setVersion('1.0.0')
+    .addTag('helloworld')
+    .addTag('swagger-example')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
   // Run app
   await app.listen(3000);
 }
