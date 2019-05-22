@@ -1,6 +1,7 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { SwaggerExample } from '../interfaces/swagger-example.interface';
 import { SwaggerExampleDto } from '../dtos/swagger-example.dto';
+import { UserRepo } from '../interfaces/user-repo.interface';
 import shortid = require('shortid');
 
 @Injectable()
@@ -19,12 +20,13 @@ export class SwaggerExampleService {
       const userRepos = await this.httpService
         .get('https://api.github.com/users/' + userGithub + '/repos')
         .toPromise();
-      const repos: [] = userRepos.data.map(dataRepo => {
-        return {
+      const repos: UserRepo[] = userRepos.data.map(dataRepo => {
+        const userRepo: UserRepo = {
           name: dataRepo.full_name,
           description: dataRepo.description,
           url: dataRepo.url,
         };
+        return userRepo;
       });
       const swaggerExample: SwaggerExample = {
         id: shortid.generate(),
@@ -62,12 +64,13 @@ export class SwaggerExampleService {
         const userRepos = await this.httpService
           .get('https://api.github.com/users/' + userGithub + '/repos')
           .toPromise();
-        const repos: [] = userRepos.data.map(dataRepo => {
-          return {
+        const repos: UserRepo[] = userRepos.data.map(dataRepo => {
+          const userRepo: UserRepo = {
             name: dataRepo.full_name,
             description: dataRepo.description,
             url: dataRepo.url,
           };
+          return userRepo;
         });
         swaggerExample.userRepos = repos;
         swaggerExample.comment =
