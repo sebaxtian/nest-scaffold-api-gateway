@@ -40,7 +40,7 @@ export class SwaggerExampleController {
       );
       // console.log('create: ', swaggerExample);
       // Response al Cliente
-      res.status(HttpStatus.OK).json(swaggerExample);
+      res.status(HttpStatus.CREATED).json(swaggerExample);
     } catch (error) {
       // console.error('create [error]: ', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
@@ -69,7 +69,11 @@ export class SwaggerExampleController {
       );
       // console.log('findOne: ', swaggerExample);
       // Response al Cliente
-      res.status(HttpStatus.OK).json(swaggerExample);
+      if (swaggerExample !== null) {
+        res.status(HttpStatus.FOUND).json(swaggerExample);
+      } else {
+        res.status(HttpStatus.NOT_FOUND).json(swaggerExample);
+      }
     } catch (error) {
       // console.error('findOne [error]: ', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
@@ -85,7 +89,11 @@ export class SwaggerExampleController {
       );
       // console.log('update: ', swaggerExample);
       // Response al Cliente
-      res.status(HttpStatus.OK).json(swaggerExample);
+      if (swaggerExample !== null) {
+        res.status(HttpStatus.OK).json(swaggerExample);
+      } else {
+        res.status(HttpStatus.NOT_MODIFIED).json(swaggerExample);
+      }
     } catch (error) {
       // console.error('update [error]: ', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
@@ -99,7 +107,11 @@ export class SwaggerExampleController {
       const isRemove: boolean = await this.swaggerExampleService.remove(id);
       // console.log('remove: ', isRemove);
       // Response al Cliente
-      res.status(HttpStatus.OK).json(isRemove);
+      if (isRemove) {
+        res.status(HttpStatus.OK).json(isRemove);
+      } else {
+        res.status(HttpStatus.NOT_MODIFIED).json(isRemove);
+      }
     } catch (error) {
       // console.error('remove [error]: ', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
