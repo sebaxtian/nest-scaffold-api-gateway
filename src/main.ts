@@ -6,8 +6,12 @@ import * as rateLimit from 'express-rate-limit';
 import { MyLogger } from './modules/logger/my-logger.service';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ConfigService } from './modules/config/config.service';
 
 async function bootstrap() {
+  const configService: ConfigService = new ConfigService(
+    `${process.env.NODE_ENV}.env`,
+  );
   /**
    * CORS: https://github.com/expressjs/cors#configuration-options
    */
@@ -59,6 +63,14 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
   // Run app
-  await app.listen(3000);
+  await app.listen(configService.portApi, () => {
+    // tslint:disable-next-line: no-console
+    console.log(
+      'API Gateway ' +
+        configService.appName +
+        ' is listening in port: ' +
+        configService.portApi,
+    );
+  });
 }
 bootstrap();
